@@ -1,13 +1,23 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+import statistics
 
 def plot_rssi():
     log_file = input("Enter file name: ")
     time, rssi = np.loadtxt(log_file,  delimiter=' ', unpack=True)
-    plt.plot(time, rssi)
+    mean_rssi = statistics.mean(rssi)
+    print("mean rssi = "+str(mean_rssi))
+
+    fig = plt.figure()
+    plt.subplot(1, 2, 1)
     plt.xlabel('time')
     plt.ylabel('RSSI(dbm)')
+    plt.plot(time, rssi)
+
+    plt.subplot(1, 2, 2)
+    plt.hist(rssi, 5)
+    plt.xlabel('RSSI(dbm)')
+    plt.ylabel('count')
     plt.show()
 
 def list_phy_param_menu():
